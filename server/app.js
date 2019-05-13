@@ -3,11 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const mongoose = require('mongoose')
+mongoose.connect('mongodb+srv://kalengabret:1q2w3e@cluster0-nqfxn.mongodb.net/test?retryWrites=true')
 
 var app = express();
+const index = require('./routes/index')
+const threads = require('./routes/threads')
+const users= require('./routes/users')
+
+app.use('/', index)
+app.use('/api/users', users)
+// app.use('/api/threads', threads)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,9 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
