@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const index = require('./routes/index')
 const threads = require('./routes/threads')
-const users= require('./routes/users')
+const users = require('./routes/users')
 
 app.use('/', index)
 app.use('/users', users)

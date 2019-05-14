@@ -20,4 +20,4 @@ const threadSchema = new Schema({
 
 const Thread = mongoose.model('Thread', threadSchema)
 
-module.export = Thread
+module.exports = Thread
