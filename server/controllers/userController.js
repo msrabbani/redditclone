@@ -1,4 +1,4 @@
-const model = require('../models/User')
+const Model = require('../models/User')
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(8);
 
@@ -9,7 +9,7 @@ const kunci = process.env.DB_SK;
 
 function signup(req, res){
    let hash = bcrypt.hashSync(req.body.password, salt);
-   model.create({
+   Model.create({
      name: req.body.name,
      email: req.body.email,
      password: hash,
@@ -21,7 +21,7 @@ function signup(req, res){
 }
 
 function getAllUsers(req, res){
-  model.find({}).then(dataUser=>{
+  Model.find({}).then(dataUser=>{
     res.send(dataUser)
   }).catch(error=>{
     res.send(error)
@@ -29,7 +29,7 @@ function getAllUsers(req, res){
 }
 
 function getSingleUser(req, res){
-  model.findById({'_id':req.params.id})
+  Model.findById({'_id':req.params.id})
   .then(dataUser=>{
     res.send(dataUser)
   }).catch(error=>{
@@ -38,7 +38,7 @@ function getSingleUser(req, res){
 }
 
 function deleteUser(req, res){
-  model.remove({"_id":req.params.id})
+  Model.remove({"_id":req.params.id})
   .then(dataUser=>{
     res.send("terhapus")
   }).catch(error=>{
@@ -47,7 +47,7 @@ function deleteUser(req, res){
 }
 
 function signin(req, res){
-  model.findOne({email:req.body.email}).then(dataUser => {
+  Model.findOne({email:req.body.email}).then(dataUser => {
     console.log('==>>',dataUser);
         if (bcrypt.compareSync(req.body.password, dataUser.password)) {
            let token = jwt.sign({email: dataUser.email, userid: dataUser._id}, kunci, {expiresIn:'1h'})
