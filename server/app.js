@@ -21,12 +21,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 const index = require('./routes/index')
-// const threads = require('./routes/threads')
+const threads = require('./routes/threads')
 const users= require('./routes/users')
 
 app.use('/', index)
 app.use('/users', users)
-// app.use('/api/threads', threads)
+app.use('/threads', threads)
 
 
 // catch 404 and forward to error handler
