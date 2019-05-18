@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const kunci = process.env.DB_SK;
 
-
 function signup(req, res){
    let hash = bcrypt.hashSync(req.body.password, salt);
    Model.create({
@@ -63,10 +62,62 @@ function signin(req, res){
   })
 }
 
+//Auth
+function userInfo(req, res, next) {
+    let token = req.body.token
+    if(token) {
+        jwt.verify(token, kunci, (err, decoded) =>  {
+            if(err) {
+              res.send(err)
+            } else {
+               req.body.author = decoded.name
+               next()
+            }
+        })
+    } else { 
+        res.send({msg: 'Not Logged in'}) 
+    }
+}
+
+function userData(req, res, next) {
+    let token = req.body.token
+    if(token) {
+        jwt.verify(token, kunci, (err, decoded) => {
+            if(err) {
+                res.send(err)
+            } else {
+                res.send(decoded)
+            }
+        })
+    } else {
+        res.send({msg: 'Not Logged in'})
+    }
+}
+
+function authUser(req, res, next) {
+    let token = req.body.token
+
+    if(token){
+        jwt.verify(token, kunci, (err, decoded) => {
+            if(decoded.id == req.params.id) {
+                next()
+            } else {
+                res.send(err)
+            }
+        })
+    } else {
+        res.send({msd: 'Not Logged in'})
+    }
+
+}
+
 module.exports = {
   signup,
   getAllUsers,
   getSingleUser,
   deleteUser,
-  signin
+  signin,
+  userInfo,
+  userData,
+  authUser
 }
