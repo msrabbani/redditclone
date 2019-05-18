@@ -98,7 +98,7 @@ function downvote(req, res) {
 var remove = function(req, res) {
   Model.findOneAndRemove({_id: req.params.id}, (err, thread) => {
     if(err) res.send(err)
-    res.send(thread)
+    res.send(`has been deleted`)
   })
 }
 

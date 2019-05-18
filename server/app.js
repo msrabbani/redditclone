@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://kalengabret:1q2w3e@cluster0-nqfxn.mongodb.net/test?retryWrites=true')
+ mongoose.connect('mongodb+srv://kalengabret:1q2w3e@cluster0-nqfxn.mongodb.net/test?retryWrites=true')
 
 var app = express();
 // view engine setup
