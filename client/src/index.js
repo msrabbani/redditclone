@@ -2,14 +2,15 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import './scss/app.scss'
 import Header from './components/Header'
+import Threads from './components/Threads'
 
-class HelloMessage extends Component {
+class Index extends Component {
     render() {
         return (
             <div>
                 <Header/>
                     <div className="container">
-                        <h1>Hello {this.props.name}</h1>
+                        <Threads />
                     </div>
             </div>
         )
@@ -18,4 +19,4 @@ class HelloMessage extends Component {
 
 let App = document.getElementById("app")
 
-ReactDOM.render(<HelloMessage name="Rabbani" />, App)
+ReactDOM.render(<Index />, App)
