@@ -9,7 +9,7 @@ class Index extends Component {
         return (
             <div>
                 <Header/>
-                    <div className="container">
+                    <div className="container is-widescreen">
                         <Threads />
                     </div>
             </div>

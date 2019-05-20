@@ -5,20 +5,21 @@ class Threads extends Component {
   constructor() {
     super();
     this.state = {
-      users: [],
+      threads: [],
     };
   }
+
   componentWillMount() {
     console.log('======= ini mau dipasang');
-    let url = 'http://localhost:3000/users/';
+    let url = 'http://localhost:3000/threads/';
     //asynchrnous
     axios
       .get(url)
-      .then(dataUsers => {
-          console.log(dataUsers.data)
-          this.setState({
-              users: dataUsers.data
-          })
+      .then(dataThreads => {
+        console.log(dataThreads.data);
+        this.setState({
+          threads: dataThreads.data,
+        });
       })
       .catch(err => {
         console.log('get data error!!');
@@ -26,14 +27,40 @@ class Threads extends Component {
   }
 
   render() {
+    const {threads} = this.state;
     console.log('===== data sedang atau rendering');
     return (
-      <div className="container">
-        {this.state.users.map((user, idx) => {
+      <div className="container is-fluid">
+        {threads.map((thread, idx) => {
           return (
-            <div className="notification" key={idx}>
-                <div>name: {user.name}</div>
-               <div>email: {user.email}</div>
+            <div className="card" key={idx}>
+              <header className="card-header">
+                <p className="card-header-title">
+                    {thread.title}
+                </p>
+                <a
+                  href="#"
+                  className="card-header-icon"
+                  aria-label="more options">
+                  <span className="icon">
+                    <i className="fas fa-angle-down" aria-hidden="true" />
+                  </span>
+                </a>
+              </header>
+              <div className="card-content">
+                <div className="content">
+                  {thread.threadContent}
+                  <br/>
+                  <a href="#">#css</a>
+                  {' '}
+                 <p> {thread.createdAt} </p> 
+                </div>
+              </div>
+              <footer className="card-footer">
+                <a href="#" className="card-footer-item">Save</a>
+                <a href="#" className="card-footer-item">Edit</a>
+                <a href="#" className="card-footer-item">Delete</a>
+              </footer>
             </div>
           );
         })}

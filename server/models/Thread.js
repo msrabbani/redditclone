@@ -15,7 +15,7 @@ const threadSchema = new Schema({
     upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
     downvotes: [{type: Schema.Types.ObjectId, ref: 'User'}]
 }, {
-    timestamp: true 
+    timestamps: true 
 })
 
 const Thread = mongoose.model('Thread', threadSchema)
